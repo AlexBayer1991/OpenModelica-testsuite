@@ -1,0 +1,28 @@
+// name: omsic helloWorld
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
+
+loadString("
+  model helloWorld
+    Real x(start=1);
+    parameter Real a=1;
+  equation
+    der(x) = a*x;
+  end helloWorld;
+");
+getErrorString();
+
+
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+//buildModel(helloWorld);
+//getErrorString();
+
+buildModelFMU(helloWorld);
+getErrorString();

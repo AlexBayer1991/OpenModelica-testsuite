@@ -1,0 +1,53 @@
+// name: omsic problem1
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
+
+loadString("
+  model problem1
+    Real u0;
+    Real i1(start=1),i2(start=1),i3(start=1),i4(start=1,fixed=true);
+    Real u1(start=1),u2(start=1),u3(start=1),u4(start=1);
+    parameter Real r1=10;
+    parameter Real r2=10;
+    parameter Real r3=10;
+    parameter Real l=1e-6;
+    Integer int(start=ip,fixed=true);
+    parameter Integer ip = 3;
+  equation
+    u0 = sin(time)*10;
+    u1-r1*i1=0;
+    u2-r2*i2=0;
+    u3-r3*i3=0;
+    u1+u3=u0;
+    u2-u3=0;
+    u3-u4=0;
+    i1-i2-i3-i4=0;
+    l*der(i4) = u4;
+    when sample(0,0.1) then
+      int = pre(int) + ip;
+    end when;
+  end problem1;
+");
+getErrorString();
+
+
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+buildModelFMU(problem1);
+getErrorString();
+
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Error: Error opening file: problem1.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult

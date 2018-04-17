@@ -1,0 +1,17 @@
+// name: omsic problem2
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
+
+loadFile("problem2.mo");
+getErrorString();
+
+setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none");
+getErrorString();
+
+buildModelFMU(problem2);
+getErrorString();
