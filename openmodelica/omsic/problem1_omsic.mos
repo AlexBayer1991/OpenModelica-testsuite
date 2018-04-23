@@ -7,7 +7,9 @@ loadString("
     parameter Real r1=10;
     parameter Real r2=10;
     parameter Real r3=10;
-    parameter Real c=1e-2;
+    parameter Real l=1e-6;
+    Integer int(start=ip);
+    parameter Integer ip = 3;
   equation
     u0 = sin(time)*10;
     u1-r1*i1=0;
@@ -17,7 +19,10 @@ loadString("
     u2-u3=0;
     u3-u4=0;
     i1-i2-i3-i4=0;
-    c*der(u4) = i4;
+    l*der(i4) = u4;
+    when sample(0,0.1) then
+      int = pre(int) + ip;
+    end when;
   end problem1;
 ");
 getErrorString();
