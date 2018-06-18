@@ -2,13 +2,13 @@
 loadString("
   model problem1
     Real u0;
-    Real i1(start=1),i2(start=1),i3(start=1),i4(start=1);
+    Real i1(start=1),i2(start=1),i3(start=1),i4(start=1,fixed=true);
     Real u1(start=1),u2(start=1),u3(start=1),u4(start=1);
     parameter Real r1=10;
     parameter Real r2=10;
     parameter Real r3=10;
     parameter Real l=1e-6;
-    Integer int(start=ip);
+    Integer int(start=ip,fixed=true);
     parameter Integer ip = 3;
   equation
     u0 = sin(time)*10;
