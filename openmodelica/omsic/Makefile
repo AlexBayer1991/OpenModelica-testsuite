@@ -20,6 +20,7 @@ DEPENDENCIES = \
 *.mos \
 Makefile
 
+UNAME := $(shell uname)
 
 CLEAN = `ls | grep -w -v -f deps.tmp`
 
@@ -30,7 +31,14 @@ test:
 	@echo Running tests...
 	@echo
 	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
+	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/libomsu.so .
+ifeq ("$(UNAME)", "Linux")
+	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/test_omsu_main .
+else
+	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/test_omsu_main.exe .
+endif
 	@$(TEST) $(TESTFILES)
+	./test_omsu_main problem1 {96992e20-e2d5-4367-8902-b9452a756f59}
 
 # Cleans all files that are not listed as dependencies
 clean :

@@ -1,3 +1,11 @@
+// name: omsic problem1
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
 
 loadString("
   model problem1
@@ -11,6 +19,7 @@ loadString("
     Integer int(start=ip,fixed=true);
     parameter Integer ip = 3;
   equation
+    bla = sin(u0)*u3;
     u0 = sin(time)*10;
     u1-r1*i1=0;
     u2-r2*i2=0;
@@ -34,3 +43,12 @@ getErrorString();
 buildModelFMU(problem1);
 getErrorString();
 
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Error: Error opening file: problem1.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult
