@@ -19,7 +19,6 @@ loadString("
     Integer int(start=ip,fixed=true);
     parameter Integer ip = 3;
   equation
-    bla = sin(u0)*u3;
     u0 = sin(time)*10;
     u1-r1*i1=0;
     u2-r2*i2=0;
