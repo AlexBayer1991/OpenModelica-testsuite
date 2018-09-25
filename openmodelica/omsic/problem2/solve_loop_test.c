@@ -2,6 +2,8 @@
 
 
 #include <problem2_omsic.h>
+#include <omsi.h>
+#include <omsi_global.h>
 #include <omsu_common.h>
 #include <omsu_initialization.h>
 #include <omsu_helper.h>

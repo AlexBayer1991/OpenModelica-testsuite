@@ -1,7 +1,7 @@
 
 
 CC=gcc
-CFLAGS= -Wall -Wextra -ansi -pedantic
+CFLAGS= -Wall -Wextra -ansi -pedantic -g
 #CFLAGS = -falign-functions -msse2 -mfpmath=sse ${MODELICAUSERCFLAGS} 
 CXX=g++
 LD=$(CC) -shared
@@ -9,19 +9,27 @@ LD=$(CC) -shared
 
 OPENMODELICAHOME = /d/workspace/OpenModelica/build
 
-RUNTIMEPATH=.
+RUNTIMEPATH=$(OPENMODELICAHOME)/lib/omc/omsi
 
-RUNTIMELIBS = -lOMSIBase -lOMSU -lOMSISolver
-RUNTIMELIBSDIR = -L$(OPENMODELICAHOME)/lib/omc/omsi
+#RUNTIMELIBS = -lOMSIBase -lOMSU -lOMSISolver
+RUNTIMELIBS = -lOMSISolver -lOMSU_static -lOMSIBase_static
+#RUNTIMELIBSDIR = -L$(OPENMODELICAHOME)/lib/omc/omsi
+RUNTIMELIBSDIR = -L.
 RUNTIMEINCLUDES = -I$(OPENMODELICAHOME)/include/omc/omsi -I$(OPENMODELICAHOME)/include/omc/omsi/solver \
  -I$(OPENMODELICAHOME)/include/omc/omsi/base \
  -I$(OPENMODELICAHOME)/include/omc/omsi/fmi2 -I$(OPENMODELICAHOME)/include/omc/omsic/
+
+EXPADLIB = -lexpat
+EXPATLIBDIR = -L$(OPENMODELICAHOME)/../OMCompiler/3rdParty/FMIL/build/ExpatEx/
+
+
 
 MAINFILE=solve_loop_test.c
 # INIT_FILES=problem2_init_equations.c \
 #  \
 # 
-SIM_FILES=problem2_sim_equations.c \
+SIM_FILES=problem2_omsic.c\
+ problem2_sim_equations.c \
  problem2_sim_algSyst_0.c \
  problem2_sim_derMat_0.c
 CFILES= $(MAINFILE) $(INIT_FILES) $(SIM_FILES)
@@ -30,30 +38,31 @@ GENERATEDFILES=$(MAINFILE) problem2_FMU.makefile # ...
 
 
 INCLUDES = $(RUNTIMEINCLUDES) -I.
-LIBS = $(RUNTIMELIBS) -Lexpad
-LIBSDIR = $(RUNTIMELIBSDIR)
+LIBS = $(RUNTIMELIBS) $(EXPADLIB)
+LIBSDIR = $(RUNTIMELIBSDIR) $(EXPATLIBDIR)
 
-.PHONY: installOMSILibs clean
+.PHONY: clean OMSIC copyLibs
 
 all:
 	omc problem2.mos
 
-compile: $(OFILES)
+compile: $(OFILES) copyLibs OMSIC
 	$(CC) $(CFLAGS) $(OFILES) -Wl,-rpath=$(RUNTIMEPATH) $(LIBSDIR) $(LIBS) -o problem2_test
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<
 
-installOMSILibs:
-	make -C $(OPENMODELICAHOME)/../OMCompiler/SimulationRuntime/OMSI/ -f Makefile.omdev.mingw install -j
-	make -C $(OPENMODELICAHOME)/../OMCompiler/SimulationRuntime/OMSIC/ -f Makefile.omdev.mingw install -j
-	cp -f $(OPENMODELICAHOME)/lib/omc/omsi/*.dll .
+OMSIC:
+	make -C $(OPENMODELICAHOME)/../OMCompiler -f Makefile.omdev.mingw OMSI OMBUILDDIR=$(OPENMODELICAHOME) -j
 
-test: installOMSILibs compile
+copyLibs:
+	cp -f $(OPENMODELICAHOME)/lib/omc/omsi/*_static.a .
+	cp -f $(OPENMODELICAHOME)/lib/omc/omsi/libOMSISolver.dll .
+
+
+test: OMSIC copyLibs compile
 	./problem2_test.exe
 
-fast_test: compile
-	./problem2_test.exe
 
 clean:
-	rm -f problem2_*.* modelDescription.xml problem2.libs *.dll problem2.exe problem2
+	rm -f problem2_*.* modelDescription.xml problem2.libs *.dll *.a *.exe problem2 *.o
