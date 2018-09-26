@@ -80,8 +80,12 @@ int main ( int argc, char **argv ) {
 
     /* print results */
     /*omsu_print_omsi_t (OSU->osu_data, "");*/
-
-    printf("Finished solver test successfully!\n"); fflush(stdout);
+    if (!OSU) {
+        printf("Finished solver test with Errors!\n");
+    }
+    else {
+        printf("Finished solver test successfully!\n");
+    }
 
     return 0;
 }

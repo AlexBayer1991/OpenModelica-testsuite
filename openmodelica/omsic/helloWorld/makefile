@@ -11,9 +11,7 @@ OPENMODELICAHOME = /d/workspace/OpenModelica/build
 
 RUNTIMEPATH=$(OPENMODELICAHOME)/lib/omc/omsi
 
-#RUNTIMELIBS = -lOMSIBase -lOMSU -lOMSISolver
 RUNTIMELIBS = -lOMSISolver -lOMSU_static -lOMSIBase_static
-#RUNTIMELIBSDIR = -L$(OPENMODELICAHOME)/lib/omc/omsi
 RUNTIMELIBSDIR = -L.
 RUNTIMEINCLUDES = -I$(OPENMODELICAHOME)/include/omc/omsi -I$(OPENMODELICAHOME)/include/omc/omsi/solver \
  -I$(OPENMODELICAHOME)/include/omc/omsi/base \
@@ -22,19 +20,17 @@ RUNTIMEINCLUDES = -I$(OPENMODELICAHOME)/include/omc/omsi -I$(OPENMODELICAHOME)/i
 EXPADLIB = -lexpat
 EXPATLIBDIR = -L$(OPENMODELICAHOME)/../OMCompiler/3rdParty/FMIL/build/ExpatEx/
 
+MODELNAME =helloWorld
 
-
-MAINFILE=solve_loop_test.c
+MAINFILE=test.c
 # INIT_FILES=problem2_init_equations.c \
 #  \
 # 
-SIM_FILES=problem2_omsic.c\
- problem2_sim_equations.c \
- problem2_sim_algSyst_0.c \
- problem2_sim_derMat_0.c
+SIM_FILES=$(MODELNAME)_omsic.c\
+ $(MODELNAME)_sim_equations.c
 CFILES= $(MAINFILE) $(INIT_FILES) $(SIM_FILES)
 OFILES=$(CFILES:.c=.o)
-GENERATEDFILES=$(MAINFILE) problem2_FMU.makefile # ...
+GENERATEDFILES=$(MAINFILE) $(MODELNAME)_FMU.makefile # ...
 
 
 INCLUDES = $(RUNTIMEINCLUDES) -I.
@@ -44,10 +40,10 @@ LIBSDIR = $(RUNTIMELIBSDIR) $(EXPATLIBDIR)
 .PHONY: clean
 
 all:
-	omc problem2.mos
+	omc $(MODELNAME).mos
 
 compile: $(OFILES) copyLibs OMSIC
-	$(CC) $(CFLAGS) $(OFILES) -Wl,-rpath=$(RUNTIMEPATH) $(LIBSDIR) $(LIBS) -o problem2_test
+	$(CC) $(CFLAGS) $(OFILES) -Wl,-rpath=$(RUNTIMEPATH) $(LIBSDIR) $(LIBS) -o $(MODELNAME)_test
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<
@@ -61,8 +57,8 @@ copyLibs:
 
 
 test: OMSIC copyLibs compile
-	./problem2_test.exe
+	./$(MODELNAME)_test.exe
 
 
 clean:
-	rm -f problem2_*.* modelDescription.xml problem2.libs *.dll *.a *.exe problem2 *.o
+	rm -f $(MODELNAME)_*.* modelDescription.xml $(MODELNAME).libs *.dll *.a *.exe $(MODELNAME) *.o
