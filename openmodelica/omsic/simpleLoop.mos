@@ -1,0 +1,16 @@
+// name: omsic simpleLoop
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
+loadFile("simpleLoop.mo");
+getErrorString();
+
+setCommandLineOptions("--simCodeTarget=omsic --tearingMethod=noTearing");
+getErrorString();
+
+buildModelFMU(simpleLoop);
+getErrorString();
