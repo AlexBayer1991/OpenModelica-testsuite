@@ -21,5 +21,8 @@ getErrorString();
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
+//buildModel(helloWorld);
+//getErrorString();
+
 buildModelFMU(helloWorld);
 getErrorString();

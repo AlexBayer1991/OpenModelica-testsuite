@@ -1,6 +1,10 @@
 # BuiltinReal.mos fails when using Cevalfunc.mo! the values are OK, the display is different!
 TEST = ../../rtest -v
 
+
+STEPSIZE=0.1
+
+
 ifeq ($(OMDEV),)
 	PATH := ./:${PATH}
 else
@@ -31,14 +35,9 @@ test:
 	@echo Running tests...
 	@echo
 	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
-	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/libomsu.so .
-ifeq ("$(UNAME)", "Linux")
-	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/test_omsu_main .
-else
-	cp ../../../OMCompiler/SimulationRuntime/OMSIC/testsuite/test_omsu_main.exe .
-endif
 	@$(TEST) $(TESTFILES)
-	./test_omsu_main problem1 {96992e20-e2d5-4367-8902-b9452a756f59}
+	fmuCheck.exe -f -h $(STEPSIZE) -l 4 -k me problem2.fmu
+
 
 # Cleans all files that are not listed as dependencies
 clean :
