@@ -9,7 +9,7 @@
 loadFile("simpleModel_1.mo");
 getErrorString();
 
-setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none");
+setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none --preOptModules-=clockPartitioning");
 getErrorString();
 
 buildModelFMU(simpleModel_1);
