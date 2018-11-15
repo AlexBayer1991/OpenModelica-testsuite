@@ -6,7 +6,7 @@
 
 loadModel(Modelica,{"3.2.1"}); getErrorString();
 loadFile("Inverter2.mo"); getErrorString();
-simulate(Inverter2, stopTime=1e-11,numberOfIntervalls=2000);getErrorString();
+simulate(Inverter2, stopTime=1e-11,numberOfIntervals=2000);getErrorString();
 res := OpenModelica.Scripting.compareSimulationResults("Inverter2_res.mat",
   "ReferenceFiles/Inverter2.mat",
   "Inverter2_diff.csv", 0.01, 0.0001,
@@ -28,8 +28,7 @@ getErrorString();
 // LOG_SUCCESS       | info    | The simulation finished successfully.
 // "
 // end SimulationResult;
-// "Warning: Requested package Modelica of version 3.2, but this package was already loaded with version 3.2.1. You might experience problems if these versions are incompatible.
-// [Modelica 3.2.1/Electrical/Spice3.mo:4630:5-4631:56:writable] Warning: Parameter mn.IC has no value, and is fixed during initialization (fixed=true), using available start value (start=-1e+40) as default value.
+// "[Modelica 3.2.1/Electrical/Spice3.mo:4630:5-4631:56:writable] Warning: Parameter mn.IC has no value, and is fixed during initialization (fixed=true), using available start value (start=-1e+40) as default value.
 // "
 // {"Files Equal!"}
 // "Warning: 'compareSimulationResults' is deprecated. It is recommended to use 'diffSimulationResults' instead.

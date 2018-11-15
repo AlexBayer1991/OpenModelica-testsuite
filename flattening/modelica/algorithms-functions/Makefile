@@ -89,6 +89,7 @@ LogCall1.mo \
 modelica_1_1_Function10.mo \
 MRFcall.mo \
 MultFuncCall.mo \
+PrefixPartialFunctionApplication.mo \
 RecursiveCallExtends.mo \
 RecursiveFunctionCall.mo \
 StackOverflowTest.mos \
@@ -97,6 +98,8 @@ SumSeriesWhile.mo \
 SumVectorForIf.mo \
 TestGravityAcceleration.mo \
 Ticket4365.mos \
+Ticket4786.mo \
+Ticket4838.mo \
 TupleError.mo \
 TupleSingleAssign.mo \
 TupleAssignmentMismatch1.mo \

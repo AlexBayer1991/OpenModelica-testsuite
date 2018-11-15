@@ -46,12 +46,12 @@ package testDAE
 
   // problem5: simple dae with when equation
   model p5
-    Real v = cos(time)*x;
-    Real w = der(x)+x*y;
+    Real v = -cos(time)*x;
+    Real w = der(x)+x*v;
     Real z(start=-3);
-    Real x,y(start=1);
+    Real x(start=1),y(start=1);
   equation
-    when x > 1.2 then
+    when v < -1.2 then
       z = cos(y);
     end when;
     der(x) = sin(time)+v*z;
@@ -110,5 +110,28 @@ package testDAE
     der(x) = sin(time)+v*z;
     der(y) = x^2-y*w;
   end p8;
+
+  // problem9: array equations
+  model p9
+    function f1
+      input Real dx;
+      input Real x[2];
+      input Real y[2];
+      output Real z[2];
+    algorithm
+      for i in 1:2 loop
+        z[i] := dx + x[i]*y[i];
+      end for;
+    end f1;
+    Real v[2] = cos(time)*x;
+    Real w[2]; // = f1(der(x), x, y);
+    Real z(start=-3);
+    Real[2] x(each start=0.8),y(each start=1);
+  equation
+    w = f1(der(y[1]), x, y);
+    z = 10*cos(y[1]);
+    der(x) = sin(time)*{1,1}+v*z;
+    der(y) = x[1]*x+x[2]*x-y*w[1]+w[2]*y;
+  end p9;
 
 end testDAE;

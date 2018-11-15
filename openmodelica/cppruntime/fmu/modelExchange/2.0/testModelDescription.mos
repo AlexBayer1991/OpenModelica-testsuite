@@ -34,8 +34,6 @@ readFile("modelDescription.tmp.xml");
 // ""
 // true
 // ""
-// rm -f OMCppSIDTest* SIDTest_FMU.* SIDTest.def SIDTest.sh SIDTest.bat SIDTest.makefile SIDTest_init.xml
-// rm -rf modelDescription.xml binaries sources documentation
 // "SIDTest.fmu"
 // ""
 // 0
@@ -51,7 +49,7 @@ readFile("modelDescription.tmp.xml");
 //   </ModelExchange>
 //   <TypeDefinitions>
 //     <Clocks>
-//       <Clock><Periodic
+//       <Clock><Inferred
 //               interval=\"0.2\"
 //               shiftCounter=\"3\"
 //               /></Clock>
@@ -142,10 +140,10 @@ readFile("modelDescription.tmp.xml");
 //   </ModelVariables>
 //   <ModelStructure>
 //     <Outputs>
-//       <Unknown index=\"4\" dependencies=\"\" dependenciesKind=\"\" />
+//       <Unknown index=\"4\" dependencies=\"1\" dependenciesKind=\"dependent\" />
 //     </Outputs>
 //     <DiscreteStates>
-//       <Unknown index=\"3\" dependencies=\"\" dependenciesKind=\"\" />
+//       <Unknown index=\"3\" dependencies=\"1 2\" dependenciesKind=\"dependent dependent\" />
 //     </DiscreteStates>
 //   </ModelStructure>
 // </fmiModelDescription>

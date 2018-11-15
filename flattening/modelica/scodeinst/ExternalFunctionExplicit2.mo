@@ -22,7 +22,7 @@ end ExternalFunctionExplicit2;
 //   input Real[3] x;
 //   output Real y;
 //
-//   external "C" y = ext(x, 3);
+//   external "C" y = ext(x, size(x, 1));
 // end f;
 //
 // class ExternalFunctionExplicit2

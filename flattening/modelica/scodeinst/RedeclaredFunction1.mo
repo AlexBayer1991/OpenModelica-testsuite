@@ -1,4 +1,4 @@
-// name: RedeclaredFunction1
+// name: RedeclareFunction1
 // keywords:
 // status: correct
 // cflags:   -d=newInst
@@ -16,10 +16,10 @@ algorithm
   x := y;
 end f;
 
-model M
+model RedeclareFunction1
   package P = .P(redeclare function f = .f);
   Real x = P.f(4);
-end M;
+end RedeclareFunction1;
 
 // Result:
 // function P.f

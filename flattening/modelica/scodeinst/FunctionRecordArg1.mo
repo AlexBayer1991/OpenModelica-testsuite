@@ -3,11 +3,6 @@
 // status: correct
 // cflags:   -d=newInst
 //
-// FAILREASON:
-//  * Weird syntax on record constructor R output.
-//  * Input r of f shouldn't be expanded.
-//  * Binding of M.r is lost.
-//
 
 record R
   Real x;
@@ -27,7 +22,7 @@ model M
 end M;
 
 // Result:
-// function R
+// function R "Automatically generated record constructor for R"
 //   input Real x;
 //   input Real y;
 //   output R res;

@@ -16,8 +16,8 @@ end Concatenation;
 //   Real r[1];
 //   Real r[2];
 // equation
-//   z = cat(2, {{2.0}}, promote({1.0}, 2));
-//   z1 = cat(1, /*Real[1, 1, 1]*/(promote({{{2}}}, 3)), promote({1.0}, 3));
-//   r = /*Real[2]*/(cat(1, {1}, {2}));
+//   z = {{2.0, 1.0}};
+//   z1 = {{{2.0}}, {{1.0}}};
+//   r = {1.0, 2.0};
 // end Concatenation;
 // endResult
