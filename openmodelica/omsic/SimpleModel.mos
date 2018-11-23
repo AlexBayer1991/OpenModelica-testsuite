@@ -1,0 +1,17 @@
+// name: omsic SimpleModel
+// keywords:omsi omsic fmu fmi
+// status: correct
+//
+// Tests generation of files for generatng an FMU
+// 
+//
+
+
+loadFile("SimpleModel.mo");
+getErrorString();
+
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+buildModelFMU(SimpleModel);
+getErrorString();
