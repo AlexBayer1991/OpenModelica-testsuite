@@ -14,3 +14,14 @@ getErrorString();
 
 buildModelFMU(simpleLoop);
 getErrorString();
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Error: Error opening file: simpleLoop.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult

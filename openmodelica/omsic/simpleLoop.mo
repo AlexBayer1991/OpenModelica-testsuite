@@ -1,7 +1,7 @@
 model simpleLoop
-    Real x(start=131/6);
-    Real y(start=-2227/24);
-    Real z(start=-131/8);
+    Real x;
+    Real y;
+    Real z;
     Real s(start=1, fixed=true);
     parameter Real a=1, b=-1, c = 7;
   equation

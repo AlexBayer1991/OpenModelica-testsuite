@@ -11,9 +11,13 @@ else
 	# this DOES NOT WORK ON WINDOWS! PATH := ./;${PATH}
 endif
 
-TESTFILES = problem1_omsic.mos \
+TESTFILES = helloWorld.mos \
+  problem2.mos \
+  simpleLoop.mos \
+  simpleModel_1.mos \
+  simpleModel_2.mos
 
-# test that currently fail. Move up when fixed. 
+# test that currently fail. Move up when fixed.
 # Run make testfailing
 FAILINGTESTFILES= \
 
@@ -36,7 +40,6 @@ test:
 	@echo
 	@echo OPENMODELICAHOME=" $(OPENMODELICAHOME) "
 	@$(TEST) $(TESTFILES)
-	fmuCheck.exe -f -h $(STEPSIZE) -l 4 -k me problem2.fmu
 
 
 # Cleans all files that are not listed as dependencies

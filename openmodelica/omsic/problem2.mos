@@ -3,7 +3,7 @@
 // status: correct
 //
 // Tests generation of files for generatng an FMU
-// 
+//
 //
 
 
@@ -15,3 +15,14 @@ getErrorString();
 
 buildModelFMU(problem2);
 getErrorString();
+
+
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Error: Error opening file: problem2.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult

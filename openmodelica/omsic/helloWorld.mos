@@ -3,26 +3,26 @@
 // status: correct
 //
 // Tests generation of files for generatng an FMU
-// 
+//
 //
 
 
-loadString("
-  model helloWorld
-    Real x(start=1);
-    parameter Real a=1;
-  equation
-    der(x) = a*x;
-  end helloWorld;
-");
+loadFile("helloWorld.mo");
 getErrorString();
-
 
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-//buildModel(helloWorld);
-//getErrorString();
-
 buildModelFMU(helloWorld);
 getErrorString();
+
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// Error: Error opening file: helloWorld.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult

@@ -3,7 +3,7 @@
 // status: correct
 //
 // Tests generation of files for generatng an FMU
-// 
+//
 //
 
 loadFile("simpleModel_2.mo");
@@ -14,3 +14,14 @@ getErrorString();
 
 buildModelFMU(simpleModel_2);
 getErrorString();
+
+// Result:
+// true
+// ""
+// true
+// ""
+// ""
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// Error: Error opening file: simpleModel_2.fmutmp/sources/Makefile.in: No such file or directory.
+// "
+// endResult
