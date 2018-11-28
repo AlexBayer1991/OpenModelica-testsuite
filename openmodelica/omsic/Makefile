@@ -2,20 +2,18 @@
 TEST = ../../rtest -v
 
 
-STEPSIZE=0.1
-
-
 ifeq ($(OMDEV),)
 	PATH := ./:${PATH}
 else
 	# this DOES NOT WORK ON WINDOWS! PATH := ./;${PATH}
 endif
 
-TESTFILES = helloWorld.mos \
-  problem2.mos \
-  simpleLoop.mos \
-  simpleModel_1.mos \
-  simpleModel_2.mos
+TESTFILES = \
+helloWorld.mos \
+problem2.mos \
+simpleLoop.mos \
+simpleModel_1.mos \
+simpleModel_2.mos
 
 # test that currently fail. Move up when fixed.
 
@@ -44,9 +42,9 @@ test:
 
 
 # Cleans all files that are not listed as dependencies
-clean :
+clean:
 	@echo $(DEPENDENCIES) | sed 's/ /\\|/g' > deps.tmp
-	@rm -f $(CLEAN)
+	@rm -rf $(CLEAN)
 
 # Run this if you want to list out the files (dependencies).
 getdeps:
