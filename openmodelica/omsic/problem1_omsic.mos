@@ -1,9 +1,10 @@
 // name: omsic problem1
 // keywords:omsi omsic fmu fmi
 // status: correct
+// teardown_command: rm problem1_me_FMU.mo && make clean -s
 //
 // Tests generation of files for generatng an FMU
-// 
+//
 //
 
 
@@ -35,12 +36,28 @@ loadString("
 ");
 getErrorString();
 
+simulate(problem1);
+getErrorString();
+
+val(der(i4),0.0);
+val(der(i4),1.0);
 
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(problem1);
+buildModelFMU(problem1, platforms={""});
 getErrorString();
+
+importFMU("problem1.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
+
+loadFile("problem1_me_FMU.mo");
+getErrorString();
+simulate(problem1_me_FMU);
+getErrorString();
+
 
 // Result:
 // true

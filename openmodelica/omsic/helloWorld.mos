@@ -1,7 +1,7 @@
 // name: helloWorldOMSI
 // keywords:omsi omsic fmu fmi
 // status: correct
-// teardown_command: rm helloWorldOMSI_me_FMU.mo; make clean
+// teardown_command: rm helloWorldOMSI_me_FMU.mo && make clean -s
 //
 // Tests generation of files for generatng an FMU
 //
@@ -40,7 +40,7 @@ getErrorString();
 simulate(helloWorldOMSI_me_FMU);
 getErrorString();
 
-compareSimulationResults("helloWorldOMSI_me_FMU_res.mat", 
+compareSimulationResults("helloWorldOMSI_me_FMU_res.mat",
                          "helloWorldOMSI_res.mat",
                          "helloWorldOMSI_result_diff.log",
 vars = {"x","a"}
