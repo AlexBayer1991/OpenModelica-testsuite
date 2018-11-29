@@ -1,6 +1,6 @@
 // name: simpleLoop
 // keywords: omsi omsic fmu fmi
-// status: incorrect
+// status: correct
 // teardown_command: rm -f simpleLoop_me_FMU.mo && make clean -s
 //
 // Tests generating and simulating an OMSIC FMU
