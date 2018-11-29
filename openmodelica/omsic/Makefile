@@ -11,9 +11,10 @@ endif
 TESTFILES = \
 helloWorld.mos \
 problem2.mos \
-simpleLoop.mos \
+simpleModel_0.mos \
 simpleModel_1.mos \
-simpleModel_2.mos
+simpleModel_2.mos \
+
 
 # test that currently fail. Move up when fixed.
 

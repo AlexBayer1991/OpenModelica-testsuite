@@ -1,9 +1,9 @@
 // name: helloWorldOMSI
-// keywords:omsi omsic fmu fmi
+// keywords: omsi omsic fmu fmi
 // status: correct
-// teardown_command: rm helloWorldOMSI_me_FMU.mo && make clean -s
+// teardown_command: rm -f helloWorldOMSI_me_FMU.mo && make clean -s
 //
-// Tests generation of files for generatng an FMU
+// Tests generating and simulating an OMSIC FMU
 //
 //
 

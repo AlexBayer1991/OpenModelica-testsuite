@@ -1,9 +1,9 @@
-// name: omsic problem1
-// keywords:omsi omsic fmu fmi
-// status: correct
-// teardown_command: rm problem1_me_FMU.mo && make clean -s
+// name: problem1
+// keywords: omsi omsic fmu fmi
+// status: incorrect
+// teardown_command: rm -f problem1_me_FMU.mo && make clean -s
 //
-// Tests generation of files for generatng an FMU
+// Tests generation of files for generating a FMU
 //
 //
 

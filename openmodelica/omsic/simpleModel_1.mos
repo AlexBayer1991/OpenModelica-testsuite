@@ -1,27 +1,97 @@
-// name: omsic simpleModel_1
-// keywords:omsi omsic fmu fmi
+// name: simpleModel_1
+// keywords: omsi omsic fmu fmi
 // status: correct
+// teardown_command: rm -f simpleModel_1_me_FMU.mo && make clean -s
 //
-// Tests generation of files for generatng an FMU
+// Tests generating and simulating an OMSIC FMU
 //
 //
 
-loadFile("simpleModel_1.mo");
+loadString("
+model simpleModel_1
+    Real x(start=1);
+    Real y(start=1);
+    parameter Real a=0.9, b=1;
+  equation
+    der(x)=a*x+sin(x*time);
+    der(y)=b*y;
+end simpleModel_1;
+");
 getErrorString();
+
+simulate(simpleModel_1);
+getErrorString();
+
+val(der(x),0.0);
+val(der(x),1.0);
+val(der(y),0.0);
+val(der(y),1.0);
 
 setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none --preOptModules-=clockPartitioning");
 getErrorString();
 
-buildModelFMU(simpleModel_1);
+buildModelFMU(simpleModel_1, platforms={""});
 getErrorString();
+
+importFMU("simpleModel_1.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
+
+loadFile("simpleModel_1_me_FMU.mo");
+getErrorString();
+simulate(simpleModel_1_me_FMU);
+getErrorString();
+
+compareSimulationResults("simpleModel_1_me_FMU_res.mat",
+                         "simpleModel_1_res.mat",
+                         "simpleModel_1_result_diff.log",
+vars = {"x","y","a","b"}
+);
+
+val(der_x_,0.0);
+val(der_x_,1.0);
+val(der_y_,0.0);
+val(der_y_,1.0);
 
 // Result:
 // true
 // ""
+// record SimulationResult
+//     resultFile = "simpleModel_1_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_1', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
+// "
+// 0.9
+// 2.816763705990503
+// 1.0
+// 2.718289220897949
 // true
 // ""
 // ""
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
-// Error: Error opening file: simpleModel_1.fmutmp/sources/Makefile.in: No such file or directory.
 // "
+// "simpleModel_1_me_FMU.mo"
+// ""
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleModel_1_me_FMU_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_1_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// {"Files Equal!"}
+// 0.9
+// 2.816763706010709
+// 1.0
+// 2.718289220626114
 // endResult
