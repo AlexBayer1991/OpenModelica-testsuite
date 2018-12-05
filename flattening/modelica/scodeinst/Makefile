@@ -636,6 +636,9 @@ OperatorOverloadConstructorSimple.mo \
 OperatorOverloadError1.mo \
 PackageConstant1.mo \
 ParameterBug.mos \
+PartialApplication1.mo \
+PartialApplicationInvalidArg1.mo \
+PartialApplicationInvalidArg2.mo \
 Prefix1.mo \
 Prefix2.mo \
 Prefix3.mo \
@@ -652,6 +655,8 @@ RecordBinding1.mo \
 RecordBinding2.mo \
 RecordBinding3.mo \
 RecordBinding4.mo \
+RecordExtends1.mo \
+RecordExtends2.mo \
 RecursiveExtends1.mo \
 RecursiveExtends3.mo \
 RedeclareClass1.mo \
