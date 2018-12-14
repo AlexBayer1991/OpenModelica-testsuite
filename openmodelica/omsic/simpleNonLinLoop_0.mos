@@ -1,6 +1,6 @@
 // name: simpleNonLinLoop_0
 // keywords: omsi omsic fmu fmi
-// status: incorrect
+// status: correct
 // teardown_command: rm -f simpleNonLinLoop_0_me_FMU.mo && make clean -s
 //
 // Tests generating and simulating an OMSIC FMU
@@ -20,33 +20,69 @@ end simpleNonLinLoop_0;
 ");
 getErrorString();
 
-//simulate(simpleNonLinLoop_0);
-//getErrorString();
+simulate(simpleNonLinLoop_0);
+getErrorString();
 
-//val(der(s),0.0);
-//val(der(s),1.0);
+val(der(s),0.0);
+val(der(s),1.0);
 
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(simpleNonLinLoop_0);
+buildModelFMU(simpleNonLinLoop_0, platforms={""});
 getErrorString();
 
-//importFMU("simpleNonLinLoop_0.fmu");
-//getErrorString();
-//setCommandLineOptions("--simCodeTarget=C");
-//getErrorString();
+importFMU("simpleNonLinLoop_0.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
 
-//loadFile("simpleNonLinLoop_0_me_FMU.mo");
-//getErrorString();
-//simulate(simpleNonLinLoop_0_me_FMU);
-//getErrorString();
+loadFile("simpleNonLinLoop_0_me_FMU.mo");
+getErrorString();
+simulate(simpleNonLinLoop_0_me_FMU);
+getErrorString();
 
-//compareSimulationResults("simpleNonLinLoop_0_me_FMU_res.mat",
-//                         "simpleNonLinLoop_0_res.mat",
-//                         "simpleNonLinLoop_0_result_diff.log",
-//vars = {"x","y","s","a","b"}
-//);
+compareSimulationResults("simpleNonLinLoop_0_me_FMU_res.mat",
+                         "simpleNonLinLoop_0_res.mat",
+                         "simpleNonLinLoop_0_result_diff.log",
+vars = {"s","a","b","c"}
+);
 
-//val(der_s_,0.0);
-//val(der_s_,1.0);
+val(der_s_,0.0);
+val(der_s_,1.0);
+
+// Result:
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleNonLinLoop_0_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleNonLinLoop_0', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// -0.0
+// -1.332
+// true
+// ""
+// ""
+// ""
+// "simpleNonLinLoop_0_me_FMU.mo"
+// ""
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleNonLinLoop_0_me_FMU_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleNonLinLoop_0_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// {"Files Equal!"}
+// -0.0
+// -1.331999998359948
+// endResult
