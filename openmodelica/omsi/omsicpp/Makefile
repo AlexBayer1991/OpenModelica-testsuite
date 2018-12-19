@@ -1,5 +1,5 @@
 # BuiltinReal.mos fails when using Cevalfunc.mo! the values are OK, the display is different!
-TEST = ../../rtest -v
+TEST = ../../../rtest -v
 
 
 ifeq ($(OMDEV),)
@@ -9,13 +9,7 @@ else
 endif
 
 TESTFILES = \
-helloWorld.mos \
-problem2.mos \
-simpleModel_0.mos \
-simpleModel_1.mos \
-simpleModel_2.mos \
-simpleLoop.mos \
-simpleNonLinLoop_0.mos
+helloWorld.mos
 
 # test that currently fail. Move up when fixed.
 

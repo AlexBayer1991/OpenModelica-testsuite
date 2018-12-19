@@ -1,0 +1,26 @@
+// name: helloWorldOMSI
+// keywords: omsi omsicpp fmu fmi
+// status: correct
+// teardown_command: rm -f helloWorldOMSI_me_FMU.mo && make clean -s
+//
+// Tests generating and simulating an OMSIC FMU
+//
+//
+
+
+loadString("
+model helloWorldOMSI
+  Real x(start=1);
+  parameter Real a = 2;
+equation
+  der(x) = a * x;
+end helloWorldOMSI;
+");
+getErrorString();
+
+
+setCommandLineOptions("--simCodeTarget=omsicpp");
+getErrorString();
+
+buildModelFMU(helloWorldOMSI, platforms={""});
+getErrorString();
