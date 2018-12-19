@@ -22,6 +22,9 @@ simulate(helloEventWorld);
 getErrorString();
 
 val(der(x),0.0);
+val(der(x),0.346);
+val(der(x),0.346572);
+val(der(x),0.348);
 val(der(x),1.0);
 
 setCommandLineOptions("--simCodeTarget=omsic");
@@ -47,6 +50,9 @@ vars = {"x","a"}
 );
 
 val(der_x_,0.0);
+val(der_x_,0.346);
+val(der_x_,0.346572);
+val(der_x_,0.348);
 val(der_x_,1.0);
 // Result:
 // true
@@ -61,6 +67,9 @@ val(der_x_,1.0);
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
 // 2.0
+// 3.995426097146758
+// 3.999999490626196
+// 1.0
 // 1.0
 // true
 // ""
@@ -83,5 +92,8 @@ val(der_x_,1.0);
 // ""
 // {"Files Equal!"}
 // 2.0
+// 3.995426096347671
+// 3.999999489826309
+// 1.0
 // 1.0
 // endResult
