@@ -1,0 +1,29 @@
+// name: simpleWhen
+// keywords: omsi omsic events fmu fmi
+// status: incorrect
+// teardown_command: rm -f simpleWhen_me_FMU.mo && make clean -s
+//
+// Tests generating and simulating an OMSIC FMU
+//
+//
+
+loadString("
+model simpleWhen
+Real x(start=1, fixed=true);
+Real a;
+initial equation
+  a=2;
+equation
+  der(x)=a*x;
+  when x>2 then
+    a = 4;
+  end when;
+end simpleWhen;
+");
+getErrorString();
+
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+buildModelFMU(simpleWhen, platforms={""});
+getErrorString();
