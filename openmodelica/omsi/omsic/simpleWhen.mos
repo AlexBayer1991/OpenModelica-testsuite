@@ -25,5 +25,5 @@ getErrorString();
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(simpleWhen, platforms={""});
+buildModelFMU(simpleWhen);
 getErrorString();

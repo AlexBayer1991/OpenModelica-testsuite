@@ -27,5 +27,5 @@ end bouncingBallOMSI;
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(bouncingBallOMSI, platforms={""});
+buildModelFMU(bouncingBallOMSI);
 getErrorString();

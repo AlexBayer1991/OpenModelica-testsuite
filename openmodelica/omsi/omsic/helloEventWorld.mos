@@ -30,7 +30,7 @@ val(der(x),1.0);
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(helloEventWorld, platforms={""});
+buildModelFMU(helloEventWorld);
 getErrorString();
 
 importFMU("helloEventWorld.fmu");
@@ -73,7 +73,7 @@ val(der_x_,1.0);
 // 1.0
 // true
 // ""
-// ""
+// "helloEventWorld.fmu"
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
 // "helloEventWorld_me_FMU.mo"

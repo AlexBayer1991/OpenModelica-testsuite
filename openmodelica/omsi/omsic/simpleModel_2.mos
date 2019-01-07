@@ -34,7 +34,7 @@ val(der(z),1.0);
 setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none");
 getErrorString();
 
-buildModelFMU(simpleModel_2, platforms={""});
+buildModelFMU(simpleModel_2);
 getErrorString();
 
 importFMU("simpleModel_2.fmu");
@@ -80,7 +80,7 @@ val(der_z_,1.0);
 // 111.6779745844617
 // true
 // ""
-// ""
+// "simpleModel_2.fmu"
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
 // "simpleModel_2_me_FMU.mo"

@@ -32,7 +32,7 @@ val(der(s),1.0);
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(simpleLoop, platforms={""});
+buildModelFMU(simpleLoop);
 getErrorString();
 
 importFMU("simpleLoop.fmu");
@@ -70,7 +70,7 @@ val(der_s_,1.0);
 // -86.33333333333334
 // true
 // ""
-// ""
+// "simpleLoop.fmu"
 // ""
 // "simpleLoop_me_FMU.mo"
 // ""
