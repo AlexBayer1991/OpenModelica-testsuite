@@ -16,7 +16,8 @@ simpleModel_1.mos \
 simpleModel_2.mos \
 simpleLoop.mos \
 simpleNonLinLoop_0.mos \
-helloEventWorld.mos
+helloEventWorld.mos \
+simpleWhen.mos
 
 # test that currently fail. Move up when fixed.
 

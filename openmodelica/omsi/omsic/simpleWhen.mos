@@ -1,6 +1,6 @@
 // name: simpleWhen
 // keywords: omsi omsic events fmu fmi
-// status: incorrect
+// status: correct
 // teardown_command: rm -f simpleWhen_me_FMU.mo && make clean -s
 //
 // Tests generating and simulating an OMSIC FMU
@@ -22,8 +22,81 @@ end simpleWhen;
 ");
 getErrorString();
 
+simulate(simpleWhen);
+getErrorString();
+
+val(der(x),0.0);
+val(der(x),0.346);
+val(der(x),0.346569);
+val(der(x),0.348);
+val(der(x),1.0);
+
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
 buildModelFMU(simpleWhen);
 getErrorString();
+
+importFMU("simpleWhen.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
+
+loadFile("simpleWhen_me_FMU.mo");
+getErrorString();
+simulate(simpleWhen_me_FMU);
+getErrorString();
+
+compareSimulationResults("simpleWhen_me_FMU_res.mat",
+                         "simpleWhen_res.mat",
+                         "simpleWhen_result_diff.log",
+vars = {"x","a"}
+);
+
+val(der_x_,0.0);
+val(der_x_,0.346);
+val(der_x_,0.346569);
+val(der_x_,0.348);
+val(der_x_,1.0);
+
+// Result:
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleWhen_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleWhen', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// 2.0
+// 3.995426097146758
+// 3.999975504296759
+// 8.045824760861839
+// 109.1981402764414
+// true
+// ""
+// "simpleWhen.fmu"
+// ""
+// "simpleWhen_me_FMU.mo"
+// ""
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleWhen_me_FMU_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleWhen_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// {"Files Equal!"}
+// 2.0
+// 3.995426096347671
+// 3.999975503496875
+// 8.045824758850388
+// 109.1981402491432
+// endResult
