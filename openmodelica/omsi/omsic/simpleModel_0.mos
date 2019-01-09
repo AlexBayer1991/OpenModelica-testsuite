@@ -1,27 +1,31 @@
-// name: simpleModel_2
+// name: SimpleModel_0
 // keywords: omsi omsic fmu fmi
 // status: correct
-// teardown_command: rm -f simpleModel_2_me_FMU.mo && make clean -s
+// teardown_command: rm -f simpleModel_0_me_FMU.mo && make clean -s
 //
 // Tests generating and simulating an OMSIC FMU
 //
 //
 
+
 loadString("
-model simpleModel_2
-    Real x(start=1);
-    Real y(start=1);
-    Real z(start=1);
-    parameter Real a=0.9, b=1, c=1.1;
-  equation
-    der(x)=a*x;
-    der(y)=b*y + x;
-    der(z)=c*z*y;
-end simpleModel_2;
+model simpleModel_0
+Real x (start=1);
+Real y (start=1);
+Real z (start=1);
+parameter Real a=0.1;
+parameter Real b=1;
+parameter Real c=5;
+
+equation
+der(x) = a*x;
+der(y) = b*y;
+der(z) = c*z;
+end simpleModel_0;
 ");
 getErrorString();
 
-simulate(simpleModel_2);
+simulate(simpleModel_0);
 getErrorString();
 
 val(der(x),0.0);
@@ -31,25 +35,25 @@ val(der(y),1.0);
 val(der(z),0.0);
 val(der(z),1.0);
 
-setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none");
+setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(simpleModel_2, platforms={""});
+buildModelFMU(simpleModel_0);
 getErrorString();
 
-importFMU("simpleModel_2.fmu");
+importFMU("simpleModel_0.fmu");
 getErrorString();
 setCommandLineOptions("--simCodeTarget=C");
 getErrorString();
 
-loadFile("simpleModel_2_me_FMU.mo");
+loadFile("simpleModel_0_me_FMU.mo");
 getErrorString();
-simulate(simpleModel_2_me_FMU);
+simulate(simpleModel_0_me_FMU);
 getErrorString();
 
-compareSimulationResults("simpleModel_2_me_FMU_res.mat",
-                         "simpleModel_2_res.mat",
-                         "simpleModel_2_result_diff.log",
+compareSimulationResults("simpleModel_0_me_FMU_res.mat",
+                         "simpleModel_0_res.mat",
+                         "simpleModel_0_result_diff.log",
 vars = {"x","y","z","a","b","c"}
 );
 
@@ -59,49 +63,48 @@ val(der_y_,0.0);
 val(der_y_,1.0);
 val(der_z_,0.0);
 val(der_z_,1.0);
-
 // Result:
 // true
 // ""
 // record SimulationResult
-//     resultFile = "simpleModel_2_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_2', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     resultFile = "simpleModel_0_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_0', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
 //     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
 // LOG_SUCCESS       | info    | The simulation finished successfully.
 // "
 // end SimulationResult;
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
-// 0.9
-// 2.21364315762443
-// 2.0
-// 7.764675204231288
-// 1.1
-// 111.6779745844617
+// 0.1
+// 0.1105170918107969
+// 1.0
+// 2.718281967099167
+// 5.0
+// 742.0953238980246
 // true
 // ""
-// ""
+// "simpleModel_0.fmu"
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
-// "simpleModel_2_me_FMU.mo"
+// "simpleModel_0_me_FMU.mo"
 // ""
 // true
 // ""
 // true
 // ""
 // record SimulationResult
-//     resultFile = "simpleModel_2_me_FMU_res.mat",
-//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_2_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     resultFile = "simpleModel_0_me_FMU_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleModel_0_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
 //     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
 // LOG_SUCCESS       | info    | The simulation finished successfully.
 // "
 // end SimulationResult;
 // ""
 // {"Files Equal!"}
-// 0.9
-// 2.213643157425202
-// 2.0
-// 7.764675203233455
-// 1.1
-// 111.6779745029454
+// 0.1
+// 0.1105170918096917
+// 1.0
+// 2.718281966827339
+// 5.0
+// 742.095323526974
 // endResult

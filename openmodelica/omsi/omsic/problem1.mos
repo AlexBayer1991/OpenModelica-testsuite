@@ -45,7 +45,7 @@ val(der(i4),1.0);
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(problem1, platforms={""});
+buildModelFMU(problem1);
 getErrorString();
 
 importFMU("problem1.fmu");
@@ -63,7 +63,7 @@ getErrorString();
 // true
 // ""
 // true
-// ""
+// "problem1.fmu"
 // ""
 // "Error: Error opening file: problem1.fmutmp/sources/Makefile.in: No such file or directory.
 // "

@@ -37,7 +37,7 @@ val(der(w1),1.0);
 setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none");
 getErrorString();
 
-buildModelFMU(problem2, platforms={""});
+buildModelFMU(problem2);
 getErrorString();
 
 importFMU("problem2.fmu");
@@ -79,7 +79,7 @@ val(der_w1_,1.0);
 // 0.08231334765026642
 // true
 // ""
-// ""
+// "problem2.fmu"
 // ""
 // "problem2_me_FMU.mo"
 // ""

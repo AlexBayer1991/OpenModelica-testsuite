@@ -30,7 +30,7 @@ val(der(y),1.0);
 setCommandLineOptions("--simCodeTarget=omsic --removeSimpleEquations=none --preOptModules-=clockPartitioning");
 getErrorString();
 
-buildModelFMU(simpleModel_1, platforms={""});
+buildModelFMU(simpleModel_1);
 getErrorString();
 
 importFMU("simpleModel_1.fmu");
@@ -72,7 +72,7 @@ val(der_y_,1.0);
 // 2.718289220897949
 // true
 // ""
-// ""
+// "simpleModel_1.fmu"
 // "Warning: The initial conditions are not fully specified. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->OMCFlags, in OMNotebook call setCommandLineOptions("-d=initialization").
 // "
 // "simpleModel_1_me_FMU.mo"
