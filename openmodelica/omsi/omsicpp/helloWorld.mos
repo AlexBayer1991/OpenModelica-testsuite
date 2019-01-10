@@ -22,5 +22,5 @@ getErrorString();
 setCommandLineOptions("--simCodeTarget=omsicpp");
 getErrorString();
 
-buildModelFMU(helloWorldOMSI, platforms={""});
+simulate(helloWorldOMSI);
 getErrorString();
