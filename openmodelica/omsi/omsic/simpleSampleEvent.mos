@@ -1,0 +1,164 @@
+// name: simpleSampleEvent
+// keywords: omsi omsic events sample fmu fmi
+// status: correct
+// teardown_command: rm -f simpleSampleEvent_me_FMU.mo && make clean -s
+//
+// Tests generating and simulating an OMSIC FMU
+//
+//
+
+loadString("
+model simpleSampleEvent
+  Real x(start=1,fixed=true);
+  Real a(start=1,fixed=true);
+equation
+  when sample(0.5, 0.1) then
+    a = pre(a)+0.1;
+  end when;
+  der(x)=a*x;
+end simpleSampleEvent;
+");
+getErrorString();
+
+simulate(simpleSampleEvent);
+getErrorString();
+
+val(der(x),0.0);
+
+val(der(x),0.498);
+val(der(x),0.5);
+val(der(x),0.502);
+
+val(der(x),0.598);
+val(der(x),0.6);
+val(der(x),0.602);
+
+val(der(x),0.698);
+val(der(x),0.7);
+val(der(x),0.702);
+
+val(der(x),0.798);
+val(der(x),0.8);
+val(der(x),0.802);
+
+val(der(x),0.898);
+val(der(x),0.9);
+val(der(x),0.902);
+
+val(der(x),0.998);
+val(der(x),1.0);
+
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+buildModelFMU(simpleSampleEvent);
+getErrorString();
+
+importFMU("simpleSampleEvent.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
+
+loadFile("simpleSampleEvent_me_FMU.mo");
+getErrorString();
+simulate(simpleSampleEvent_me_FMU);
+getErrorString();
+
+compareSimulationResults("simpleSampleEvent_me_FMU_res.mat",
+                         "simpleSampleEvent_res.mat",
+                         "simpleSampleEvent_result_diff.log",
+vars = {"x","a"}
+);
+
+val(der_x_,0.0);
+
+val(der_x_,0.498);
+val(der_x_,0.5);
+val(der_x_,0.502);
+
+val(der_x_,0.598);
+val(der_x_,0.6);
+val(der_x_,0.602);
+
+val(der_x_,0.698);
+val(der_x_,0.7);
+val(der_x_,0.702);
+
+val(der_x_,0.798);
+val(der_x_,0.8);
+val(der_x_,0.802);
+
+val(der_x_,0.898);
+val(der_x_,0.9);
+val(der_x_,0.902);
+
+val(der_x_,0.998);
+val(der_x_,1.0);
+
+// Result:
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleSampleEvent_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleSampleEvent', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// 1.0
+// 1.645431146852787
+// 1.813597845989446
+// 1.817592154313813
+// 2.020038424589721
+// 2.208531735699118
+// 2.213838578967417
+// 2.484151955809639
+// 2.697631077918288
+// 2.704654046630664
+// 3.064168801522502
+// 3.308464774193724
+// 3.317741459423521
+// 3.795006485479382
+// 4.077479230072294
+// 4.089730039024773
+// 4.723171462581197
+// 5.05318634204199
+// true
+// ""
+// "simpleSampleEvent.fmu"
+// ""
+// "simpleSampleEvent_me_FMU.mo"
+// ""
+// true
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "simpleSampleEvent_me_FMU_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'simpleSampleEvent_me_FMU', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "Not implemented yet!LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// {"Files Equal!"}
+// 1.0
+// 1.645431146688243
+// 1.648725314370987
+// 1.817592154104788
+// 2.020038424357412
+// 2.024487424158037
+// 2.213838578677399
+// 2.484151955484213
+// 2.49012099467529
+// 2.704654046230364
+// 3.064168801069004
+// 3.072145861296636
+// 3.317741458872758
+// 3.7950064848494
+// 3.805647280769057
+// 4.089730038268141
+// 4.72317146170738
+// 5.053186341107116
+// endResult
