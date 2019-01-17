@@ -6,26 +6,74 @@
 //
 
 loadString("
-model bouncingBallOMSI
+model bouncingBall
   parameter Real e=0.7 \"coefficient of restitution\";
   parameter Real g=9.81 \"gravity acceleration\";
-  Real h(start=1) \"height of ball\";
-  Real v \"velocity of ball\";
-  Real v_new;
+  Real h(fixed=true, start=1) \"height of ball\";
+  Real v(fixed=true) \"velocity of ball\";
+  Boolean flying(fixed=true, start=true) \"true, if ball is flying\";
+  Boolean impact;
+  Real v_new(fixed=true);
+  Integer foo;
 equation
-  der(v) = -g;
+  impact = h <= 0.0;
+  foo = if impact then 1 else 2;
+  der(v) = if flying then -g else 0;
   der(h) = v;
-
-  when h <= 0.0 then
-    v_new = -e*pre(v);
+  when {h <= 0.0 and v <= 0.0,impact} then
+    v_new = if edge(impact) then -e*pre(v) else 0;
+    flying = v_new > 0;
     reinit(v, v_new);
   end when;
+end bouncingBall;
+");
+getErrorString();
 
-end bouncingBallOMSI;
-"); getErrorString();
+simulate(bouncingBall);
+getErrorString();
+
+val(der(v),0.0);
+val(der(v),0.45);
+val(der(v),0.451524);
+val(der(v),0.452);
+val(der(v),1.0);
+
+val(der(h),0.0);
+val(der(h),0.45);
+val(der(h),0.451524);
+val(der(h),0.452);
+val(der(h),1.0);
 
 setCommandLineOptions("--simCodeTarget=omsic");
 getErrorString();
 
-buildModelFMU(bouncingBallOMSI);
+buildModelFMU(bouncingBall);
 getErrorString();
+
+importFMU("bouncingBall.fmu");
+getErrorString();
+setCommandLineOptions("--simCodeTarget=C");
+getErrorString();
+
+loadFile("bouncingBall_me_FMU.mo");
+getErrorString();
+simulate(bouncingBall_me_FMU);
+getErrorString();
+
+compareSimulationResults("bouncingBall_me_FMU_res.mat",
+                         "bouncingBall_res.mat",
+                         "bouncingBall_result_diff.log",
+vars = {"x","a"}
+);
+
+val(der_v_,0.0);
+val(der_v_,0.45);
+val(der_v_,0.451524);
+val(der_v_,0.452);
+val(der_v_,1.0);
+
+val(der_h_,0.0);
+val(der_h_,0.45);
+val(der_h_,0.451524);
+val(der_h_,0.452);
+val(der_h_,1.0);
