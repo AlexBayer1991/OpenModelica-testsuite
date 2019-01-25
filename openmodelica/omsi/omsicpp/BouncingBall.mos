@@ -1,7 +1,7 @@
 // name: BouncingBall
 // keywords: omsi omsicpp fmu fmi
 // status: correct
-// teardown_command:
+// teardown_command:make clean -s
 //
 // Tests generating and simulating an OMSICPP FMU
 //

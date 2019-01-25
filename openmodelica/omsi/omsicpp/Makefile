@@ -22,6 +22,7 @@ FAILINGTESTFILES= \
 DEPENDENCIES = \
 *.mo \
 *.mos \
+*ref_res.mat \
 Makefile
 
 UNAME := $(shell uname)
