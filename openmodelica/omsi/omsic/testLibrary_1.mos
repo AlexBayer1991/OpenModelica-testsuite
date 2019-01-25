@@ -1,0 +1,43 @@
+// name:     testLibrary_1
+// keywords: omsi omsic MSL fmu fmi
+// status: correct
+// teardown_command: rm -f Modelica_Blocks_Examples_BusUsage_me_FMU.mo Modelica.Blocks.Examples.BusUsage_simulation.mos && make clean -s
+// Compilation and simulation of models from libraries
+//
+
+loadModel(Modelica, {"3.2"});
+getErrorString();
+
+// Simulate for C
+//simulate(Modelica.Blocks.Examples.BusUsage);
+//getErrorString();
+
+// Simulate for OMSIC
+setCommandLineOptions("--simCodeTarget=omsic");
+getErrorString();
+
+simulate(Modelica.Blocks.Examples.BusUsage);
+getErrorString();
+
+// Result:
+// true
+// ""
+// record SimulationResult
+//     resultFile = "Modelica.Blocks.Examples.BusUsage_res.mat",
+//     simulationOptions = "startTime = 0.0, stopTime = 2.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'Modelica.Blocks.Examples.BusUsage', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// true
+// ""
+// record SimulationResult
+//     resultFile = "",
+//     simulationOptions = "startTime = 0.0, stopTime = 2.0, numberOfIntervals = 500, tolerance = 1e-006, method = 'dassl', fileNamePrefix = 'Modelica.Blocks.Examples.BusUsage', options = '', outputFormat = 'mat', variableFilter = '.*', cflags = '', simflags = ''",
+//     messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+// LOG_SUCCESS       | info    | The simulation finished successfully.
+// "
+// end SimulationResult;
+// ""
+// endResult

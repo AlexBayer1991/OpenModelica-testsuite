@@ -18,7 +18,8 @@ simpleLoop.mos \
 simpleNonLinLoop_0.mos \
 helloEventWorld.mos \
 simpleWhen.mos \
-simpleSampleEvent.mos
+simpleSampleEvent.mos \
+testLibrary_1.mos
 
 # test that currently fail. Move up when fixed.
 
