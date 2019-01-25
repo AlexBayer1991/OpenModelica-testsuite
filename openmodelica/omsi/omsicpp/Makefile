@@ -9,7 +9,8 @@ else
 endif
 
 TESTFILES = \
-helloWorld.mos
+helloWorld.mos \
+BouncingBall.mos
 
 # test that currently fail. Move up when fixed.
 

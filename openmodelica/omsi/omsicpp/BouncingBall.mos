@@ -1,9 +1,9 @@
-// name: helloWorldOMSI
+// name: BouncingBall
 // keywords: omsi omsicpp fmu fmi
 // status: correct
-// teardown_command: make clean -s
+// teardown_command:
 //
-// Tests generating and simulating an OMSIC FMU
+// Tests generating and simulating an OMSICPP FMU
 //
 //
 
