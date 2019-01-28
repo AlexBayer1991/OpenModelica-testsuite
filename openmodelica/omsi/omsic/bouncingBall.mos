@@ -63,7 +63,7 @@ getErrorString();
 compareSimulationResults("bouncingBall_me_FMU_res.mat",
                          "bouncingBall_res.mat",
                          "bouncingBall_result_diff.log",
-vars = {"x","a"}
+vars = {"e", "flying", "foo", "g", "h", "impact", "v" , "v_new"}
 );
 
 val(der_v_,0.0);

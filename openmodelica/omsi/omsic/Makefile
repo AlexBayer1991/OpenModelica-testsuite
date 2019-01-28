@@ -19,13 +19,13 @@ simpleNonLinLoop_0.mos \
 helloEventWorld.mos \
 simpleWhen.mos \
 simpleSampleEvent.mos \
+bouncingBall.mos \
 testLibrary_1.mos
 
 # test that currently fail. Move up when fixed.
 
 # Run make testfailing
 FAILINGTESTFILES= \
-bouncingBall.mos
 
 # Dependency files that are not .mo .mos or Makefile
 # Add them here or they will be cleaned.
