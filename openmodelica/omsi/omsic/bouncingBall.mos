@@ -1,6 +1,6 @@
 // name:     bouncingBall
 // keywords: omsi omsic events fmu fmi
-// status: incorrect
+// status: correct
 // teardown_command: rm -f bouncingBall_me_FMU.mo && make clean -s
 // Event handling in FMU Import
 //
